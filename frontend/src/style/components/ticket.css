@@ -1,0 +1,67 @@
+/* .ticket {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.ticket h3 {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.ticket p {
+  margin: 8px 0;
+}
+
+.ticket p:first-child {
+  font-weight: bold;
+}
+
+.ticket p:last-child {
+  margin-bottom: 0;
+} */
+
+.ticket {
+  background: linear-gradient(to bottom, #e84c3d 0%, #e84c3d 26%, #ecedef 26%, #ecedef 100%);
+  width: 27em;
+  margin: 3em auto;
+  color: #343434;
+  font-family: sans-serif;
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  font-size: 1.5em;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+p {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.place {
+  font-weight: bold;
+}
+
+.date {
+  font-style: italic;
+}
+
+.price {
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.number {
+  font-weight: bold;
+}
+
+
+
+
+

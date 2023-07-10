@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  }
+  
+  .organizer, .customers {
+  flex: 1;
+  margin: 0 2.5%;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  }
+  
+  .organizer {
+  background-color: #7393B3;
+  }
+  
+  .customers {
+  background-color: 	#7393B3;
+  }
+  
+  h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  }
+  
+  form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  }
+  
+  label {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  }
+  
+  input[type="email"], input[type="password"], input[type="text"] {
+  padding: 10px;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+  background-color: #007AFF;
+  color: #FFF;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+  background-color: #005CE6;
+  }

@@ -1,0 +1,39 @@
+.statistics {
+    background-color: #7393B3;
+    height: 300%;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .transactions {
+    background-color: white;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .transactions h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .transactions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .transactions li {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 20px;
+  }
+  
+  .transactions li:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+  
