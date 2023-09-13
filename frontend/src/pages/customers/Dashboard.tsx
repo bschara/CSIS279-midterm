@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
-import axios from 'axios';
-import "../../style/organizers/organizerDashboard.css";
-import Cookies from 'js-cookie';
+import axios from "axios";
+import "../../style/customers/customerDashboard.css";
 
 interface Transaction {
   from: string;
@@ -12,21 +11,21 @@ interface Transaction {
 
 function Dashboard() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const cust_wallet_address = Cookies.get("cust_wallet_address")!;
+  const cust_wallet_address = sessionStorage.getItem("cust_wallet_address")!;
 
   useEffect(() => {
     const getTransactions = async () => {
-      const response = await axios.get('https://api.etherscan.io/api', {
+      const response = await axios.get("https://api.etherscan.io/api", {
         params: {
-          module: 'account',
-          action: 'txlist',
+          module: "account",
+          action: "txlist",
           address: "0x12970E6868f88f6557B76120662c1B3E50A646bf",
-          sort: 'desc',
-          apikey: '9HW48FJETSESUMGXS3AFHEDBDD3WDNNAMD'
-        }
+          sort: "desc",
+          apikey: "9HW48FJETSESUMGXS3AFHEDBDD3WDNNAMD",
+        },
       });
       setTransactions(response.data.result);
-    }
+    };
     getTransactions();
   }, []);
 
@@ -35,25 +34,36 @@ function Dashboard() {
       <Navbar />
       <div className="dashboard-wrapper">
         <div className="statistics">
-          {/* display statistics */}
-          <h2>Statistics</h2>
-          {/* Add your statistics display components here */}
+          <div className="statistics-item">
+            <h3>Total Number Of Collections</h3>
+            {/* <p>{totalCollections}</p> */}
+          </div>
+          <div className="statistics-item">
+            <h3>Total Tickets Owned</h3>
+            {/* <p>{totalTicketsSold}</p> */}
+          </div>
+          <div className="statistics-item">
+            <h3>Total Tickets Value</h3>
+            {/* <p>{totalSalesValue}</p> */}
+          </div>
         </div>
+        <h1 className="transaction-title">Recent Transactions</h1>
         <div className="transactions">
-          <h2>Recent Transactions</h2>
-          <ul>
+          <table className="transactions-table">
+            <th>From</th>
+            <th>To</th>
+            <th>Value</th>
             {transactions.map((transaction, index) => (
-              <li key={index}>
-                <p>From: {transaction.from}</p>
-                <p>To: {transaction.to}</p>
-                <p>Value: {transaction.value}</p>
-              </li>
+              <tr key={index}>
+                <td>{transaction.from}</td>
+                <td>{transaction.to}</td>
+                <td>{transaction.value}</td>
+              </tr>
             ))}
-          </ul>
+          </table>
         </div>
       </div>
     </div>
   );
-            }
+}
 export default Dashboard;
-            

@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import OrgNavbar from '../../components/orgNavbar';
-import Cookies from 'js-cookie';
+import React, { useState } from "react";
+import axios from "axios";
+import OrgNavbar from "../../components/orgNavbar";
 
 function OrgProfile() {
-  const email = Cookies.get("organizerEmail");
+  const email = sessionStorage.getItem("organizerEmail");
   //console.log(email);
   const [userData, setUserData] = useState({
-    firstName: '',
-    lastName: '',
-    walletAddress: '',
-    privateKey: '',
+    firstName: "",
+    lastName: "",
+    walletAddress: "",
+    privateKey: "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
   };
-  
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3000/organizers/update/${email}`, userData);
+      const response = await axios.put(
+        `http://localhost:3000/organizers/update/${email}`,
+        userData
+      );
 
       console.log(response.data);
       // show success message or redirect to new page
@@ -44,7 +45,6 @@ function OrgProfile() {
             name="firstName"
             value={userData.firstName}
             onChange={handleInputChange}
-            
           />
         </div>
         <div>
@@ -54,7 +54,6 @@ function OrgProfile() {
             name="lastName"
             value={userData.lastName}
             onChange={handleInputChange}
-            
           />
         </div>
         <div>
@@ -64,7 +63,6 @@ function OrgProfile() {
             name="walletAddress"
             value={userData.walletAddress}
             onChange={handleInputChange}
-            
           />
         </div>
         <div>
@@ -74,7 +72,6 @@ function OrgProfile() {
             name="privateKey"
             value={userData.privateKey}
             onChange={handleInputChange}
-            
           />
         </div>
         <button type="submit">Update</button>

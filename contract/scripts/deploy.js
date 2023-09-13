@@ -9,7 +9,7 @@ async function main() {
 
   const provider = new ethers.providers.JsonRpcProvider(url);
 
-  let privateKey = "d6e330b6e39c9e4072753c84079512c364ef436f92c5b0d7dfceb231ed7183e6";
+  let privateKey = process.env.TESTNET_SECRET_KEY;
 
   let wallet = new ethers.Wallet(privateKey, provider);
 

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/Navbar';
+import React, { useState, useEffect } from "react";
+import Navbar from "../../components/Navbar";
 import { ethers } from "ethers";
 import MyToken from "../../assets/MyToken.json";
 import "../../style/customers/custInventory.css";
-import Cookies from 'js-cookie';
 import Ticket from "../../components/Ticket";
 
 interface Ticket {
@@ -21,9 +20,13 @@ function MyTickets() {
     async function getTickets() {
       const providerUrl = process.env.REACT_APP_ALCHEMY_SEPOLIA_KEY;
       const provider = new ethers.providers.JsonRpcProvider(providerUrl);
-      const walletAddress = Cookies.get("cust_wallet_address");
-      const contractAddress = "0xB214a909db206a1E4b38631379E9b0767cdbcDD7";
-      const contract = new ethers.Contract(contractAddress, MyToken.abi, provider);
+      const walletAddress = sessionStorage.getItem("cust_wallet_address");
+      const contractAddress = "0x6EC1d183b8E674f5A08ed5fFfC9530629bD83f89";
+      const contract = new ethers.Contract(
+        contractAddress,
+        MyToken.abi,
+        provider
+      );
 
       const collectionCount = await contract.getCollectionCounter();
       let tickets: Ticket[] = [];
@@ -56,18 +59,18 @@ function MyTickets() {
     <div>
       <Navbar />
       <div className="ticket-container">
-      {tickets.map((ticket) => (
-        <Ticket
-          name={ticket.name}
-          place={ticket.place}
-          date={ticket.date}
-          ticketPrice={ticket.ticketPrice}
-          ticketNumber={ticket.ticketNumber}
-        />
-      ))}
-    </div>
+        {tickets.map((ticket) => (
+          <Ticket
+            name={ticket.name}
+            place={ticket.place}
+            date={ticket.date}
+            ticketPrice={ticket.ticketPrice}
+            ticketNumber={ticket.ticketNumber}
+          />
+        ))}
+      </div>
     </div>
   );
-};
+}
 
 export default MyTickets;

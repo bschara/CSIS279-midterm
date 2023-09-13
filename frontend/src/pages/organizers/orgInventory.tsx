@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import OrgNavbar from '../../components/orgNavbar';
-import { ethers } from 'ethers';
+import React, { useState, useEffect } from "react";
+import OrgNavbar from "../../components/orgNavbar";
+import { ethers } from "ethers";
 import MyToken from "../../assets/MyToken.json";
 import "../../style/organizers/orgInventory.css";
-import Cookies from 'js-cookie';
 import Ticket from "../../components/Ticket";
 
 function OrgInventory() {
@@ -22,10 +21,14 @@ function OrgInventory() {
       try {
         const providerUrl = process.env.REACT_APP_ALCHEMY_SEPOLIA_KEY;
         const provider = new ethers.providers.JsonRpcProvider(providerUrl);
-        const contractAddress = '0xB214a909db206a1E4b38631379E9b0767cdbcDD7';
-        const contract = new ethers.Contract(contractAddress, MyToken.abi, provider);
+        const contractAddress = "0x6EC1d183b8E674f5A08ed5fFfC9530629bD83f89";
+        const contract = new ethers.Contract(
+          contractAddress,
+          MyToken.abi,
+          provider
+        );
 
-        const organizerAddress = Cookies.get("org_wallet_address");
+        const organizerAddress = sessionStorage.getItem("org_wallet_address");
         const collectionCount = await contract.getCollectionCounter();
         let tickets: Ticket[] = [];
 
@@ -39,12 +42,12 @@ function OrgInventory() {
             if (ticketData.organizerAddress === organizerAddress) {
               const ticketData = await contract.getTicketData(tokenId);
               tickets.push({
-                  name: ticketData.name,
-                  place: ticketData.place,
-                  date: ticketData.date,
-                  ticketPrice: ticketData.ticketPrice,
-                  ticketNumber: ticketData.ticketNumber,
-                });
+                name: ticketData.name,
+                place: ticketData.place,
+                date: ticketData.date,
+                ticketPrice: ticketData.ticketPrice,
+                ticketNumber: ticketData.ticketNumber,
+              });
             }
           }
         }
@@ -61,16 +64,16 @@ function OrgInventory() {
     <div>
       <OrgNavbar />
       <div className="ticket-container">
-      {tickets.map((ticket) => (
-        <Ticket
-          name={ticket.name}
-          place={ticket.place}
-          date={ticket.date}
-          ticketPrice={ticket.ticketPrice}
-          ticketNumber={ticket.ticketNumber}
-        />
-      ))}
-    </div>
+        {tickets.map((ticket) => (
+          <Ticket
+            name={ticket.name}
+            place={ticket.place}
+            date={ticket.date}
+            ticketPrice={ticket.ticketPrice}
+            ticketNumber={ticket.ticketNumber}
+          />
+        ))}
+      </div>
     </div>
   );
 }

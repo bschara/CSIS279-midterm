@@ -1,39 +1,86 @@
+body{
+background-color: white;
+}
+
 .statistics {
-    background-color: #7393B3;
-    height: 300%;
-    width: 100%;
-    margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.statistics-item {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  flex-basis: calc(33.33% - 20px);
+  margin-bottom: 20px;
+  padding: 7px;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.statistics-item:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.statistics-item h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.statistics-item p {
+  font-size: 18px;
+  margin-bottom: 0;
+  color: #666;
+}
+
+.transactions{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transaction-title {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
-  .transactions {
-    background-color: white;
-    width: 100%;
-    padding: 20px;
-  }
-  
-  .transactions h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .transactions ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .transactions li {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #E5E5E5;
-    padding-bottom: 20px;
-  }
-  
-  .transactions li:last-child {
-    margin-bottom: 0;
-    border-bottom: none;
-  }
-  
+
+.transactions-table {
+  width: 60%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+}
+
+.transactions-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.transactions-table td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.transactions-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.transactions-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+.pagination button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
