@@ -16,8 +16,41 @@ function DashboardOrganizer() {
   const [totalCollections, setTotalCollections] = useState<number>(0);
   const [totalTicketsSold, setTotalTicketsSold] = useState<number>(0);
   const [totalSalesValue, setTotalSalesValue] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10); // Adjust as needed
+  const totalPages = Math.ceil(transactions.length / itemsPerPage);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = transactions.slice(indexOfFirstItem, indexOfLastItem);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // JSX for pagination controls
+  const paginationControls = (
+    <div className="pagination">
+      <button onClick={prevPage}>Previous</button>
+      <span>
+        Page {currentPage} of {totalPages}
+      </span>
+      <button onClick={nextPage}>Next</button>
+    </div>
+  );
+
+  // Calculate the total number of pages
 
   const orgAddress = sessionStorage.getItem("org_wallet_address");
+  console.log(orgAddress);
   const providerUrl = process.env.REACT_APP_ALCHEMY_SEPOLIA_KEY;
   const provider = new ethers.providers.JsonRpcProvider(providerUrl);
   const privateKey = process.env.REACT_APP_ALCHEMY_SECRET_KEY!;
@@ -32,11 +65,11 @@ function DashboardOrganizer() {
     };
 
     const getTransactions = async () => {
-      const response = await axios.get("https://api.etherscan.io/api", {
+      const response = await axios.get("https://api-sepolia.etherscan.io/api", {
         params: {
           module: "account",
           action: "txlist",
-          address: "0x06BD27ab0530ba02Bb7B24e59b34bA68ab829F87",
+          address: orgAddress,
           sort: "desc",
           apikey: "9HW48FJETSESUMGXS3AFHEDBDD3WDNNAMD",
         },
@@ -57,8 +90,9 @@ function DashboardOrganizer() {
       var totalSales = 0;
       const collections = await contract.getCollectionsByOrganizer(orgAddress);
       for (let i = 0; i < collections.length; i++) {
-        //let price = await contract.getTicketData(collections.tokenIds[0]).ticketPrice
-        //console.log(price);
+        // let price = await contract.getTicketData(collections.tokenIds[0])
+        //   .ticketPrice;
+        // console.log(price);
         totalSales += collections[i].ticketSold * 0.1;
       }
       setTotalSalesValue(totalSales);
@@ -94,14 +128,15 @@ function DashboardOrganizer() {
             <th>From</th>
             <th>To</th>
             <th>Value</th>
-            {transactions.map((transaction, index) => (
+            {currentItems.map((transaction, index) => (
               <tr key={index}>
                 <td>{transaction.from}</td>
                 <td>{transaction.to}</td>
-                <td>{transaction.value}</td>
+                <td>{parseFloat(transaction.value) / 1e18}</td>
               </tr>
             ))}
           </table>
+          {paginationControls}{" "}
         </div>
       </div>
     </div>

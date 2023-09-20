@@ -6,9 +6,18 @@
   margin: 2rem auto 0;
   padding: 2rem;
   background-color: #212121;
+  border: 2px solid c0bfbf;
+  border-radius: 8px;
   color: #fff;
+  box-shadow: 0 4px 8px black
 }
 
+.ticket-wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
   
   label {
     display: flex;

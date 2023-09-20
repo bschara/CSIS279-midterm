@@ -25,16 +25,13 @@
   width: 50%;
 }
 
-/* .form-box{
-  background-color: aqua;
-  padding: 60px;
-} */
 
 .login-form h1 {
   font-size: 24px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
+  color: black;
 }
 
 .login-form label {
@@ -42,21 +39,22 @@
   align-items: center;
   flex-direction: column;
   gap: 5px;
+  color: black;
 }
 
 .login-form input[type="email"],
 .login-form input[type="password"] {
   padding: 10px;
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 4px;
   background-color: transparent;
-  color: #fff;
+  color: black;
 }
 
 .login-form input[type="email"]:focus,
 .login-form input[type="password"]:focus {
   outline: none;
-  box-shadow: 0 0 5px white;
+  box-shadow: 0 0 5px black;
 }
 
 .hyperlink {

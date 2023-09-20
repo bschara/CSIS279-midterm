@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import "../../style/organizers/createTicket.css";
 import OrgNavbar from "../../components/orgNavbar";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import MyToken from "../../assets/MyToken.json";
+import Ticket from "../../components/Ticket";
 
 interface EventData {
   name: string;
   date: string;
   location: string;
-  ticketPrice: string;
+  ticketPrice: number;
   ticketQuantity: number;
 }
 
@@ -20,7 +21,7 @@ function CreateEvent(props: Props) {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
-  const [ticketPrice, setTicketPrice] = useState("0.00");
+  const [ticketPrice, setTicketPrice] = useState(0);
   const [ticketQuantity, setTicketQuantity] = useState(0);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -45,7 +46,7 @@ function CreateEvent(props: Props) {
     console.log(organizerAddress);
 
     // Call the createCollection function with the input values
-    const priceInWei = ethers.utils.parseEther(ticketPrice);
+    const priceInWei = ethers.utils.parseEther(String(ticketPrice));
     await contract.createCollection(
       name,
       location,
@@ -59,49 +60,67 @@ function CreateEvent(props: Props) {
   return (
     <div>
       <OrgNavbar />
-      <form onSubmit={handleSubmit} className="form-container">
-        <label>
-          Name:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label>
-          Date:
-          <input
-            type="text"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </label>
-        <label>
-          Location:
-          <input
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </label>
-        <label>
-          Ticket Price:
-          <input
-            type="text"
-            value={ticketPrice}
-            onChange={(e) => setTicketPrice(e.target.value)}
-          />
-        </label>
-        <label>
-          Ticket Quantity:
-          <input
-            type="number"
-            value={ticketQuantity}
-            onChange={(e) => setTicketQuantity(parseInt(e.target.value))}
-          />
-        </label>
-        <button type="submit">Create Event</button>
-      </form>
+      <div className="ticket-wrapper">
+        <Ticket
+          name={name}
+          place={location}
+          date={date}
+          ticketPrice={ethers.BigNumber.from(ticketPrice)}
+          ticketNumber={ethers.BigNumber.from(ticketQuantity)}
+        />
+        <form onSubmit={handleSubmit} className="form-container">
+          <label>
+            Name:
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+          <label>
+            Location:
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          </label>
+          <label>
+            Date:
+            <input
+              type="text"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </label>
+          <label>
+            Ticket Price:
+            <input
+              type="number"
+              value={ticketPrice}
+              onChange={(e) => {
+                const inputPrice = parseFloat(e.target.value);
+                if (!isNaN(inputPrice)) {
+                  // Input is a valid number
+                  setTicketPrice(inputPrice);
+                } else {
+                  // Input is not a valid number, set ticketPrice to 0
+                  setTicketPrice(0);
+                }
+              }}
+            />
+          </label>
+          <label>
+            Ticket Quantity:
+            <input
+              type="number"
+              value={ticketQuantity}
+              onChange={(e) => setTicketQuantity(parseInt(e.target.value))}
+            />
+          </label>
+          <button type="submit">Create Event</button>
+        </form>
+      </div>
     </div>
   );
 }

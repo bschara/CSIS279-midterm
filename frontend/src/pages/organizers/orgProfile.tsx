@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import OrgNavbar from "../../components/orgNavbar";
+import "../../style/organizers/org_profile.css";
 
 function OrgProfile() {
   const email = sessionStorage.getItem("organizerEmail");
@@ -34,10 +35,12 @@ function OrgProfile() {
   };
 
   return (
-    <div>
-      <OrgNavbar />
-      <h1>Profile</h1>
-      <form onSubmit={handleFormSubmit}>
+    <div className="profile-container">
+      <div className="profile-header">
+        <OrgNavbar />
+        <h1>Profile</h1>
+      </div>
+      <form className="profile-form" onSubmit={handleFormSubmit}>
         <div>
           <label>First Name:</label>
           <input
