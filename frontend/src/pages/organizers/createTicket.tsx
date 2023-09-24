@@ -98,16 +98,7 @@ function CreateEvent(props: Props) {
             <input
               type="number"
               value={ticketPrice}
-              onChange={(e) => {
-                const inputPrice = parseFloat(e.target.value);
-                if (!isNaN(inputPrice)) {
-                  // Input is a valid number
-                  setTicketPrice(inputPrice);
-                } else {
-                  // Input is not a valid number, set ticketPrice to 0
-                  setTicketPrice(0);
-                }
-              }}
+              onChange={(e) => setTicketPrice(parseFloat(e.target.value))}
             />
           </label>
           <label>

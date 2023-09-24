@@ -4,21 +4,36 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* width: 60%; */
+    background-color: white;
+  }
+
+  .forms-wrapper{
+    background-color: #212121;
+    width: 30%;
   }
   
   .form-box {
-    background-color: #f9f9f9;
+    background-color: white;
     padding: 30px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+
+  .form-box h1{
+    display: flex;
+    justify-content: center;
+  }
   
-  
-  .label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+  .form-box h1{
+    display: flex;
+    justify-content: center;
+    
+  }
+
+  .form-box label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .input-fields {
@@ -27,19 +42,25 @@
     grid-gap: 15px;
   }
   
-  /* Add margin to each input element */
   .input-fields input[type="text"],
   .input-fields input[type="email"],
   .input-fields input[type="password"] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #212121;
     border-radius: 3px;
+    width: 80%;
   }
-  
-  
-  
+
+  .input-fields input[type="email"]:focus,
+  .input-fields input[type="text"]:focus,
+.input-fields input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px black;
+}
+
+    
   .radio-input {
     display: flex;
     justify-content: space-between;
@@ -53,10 +74,10 @@
     padding: 10px 20px;
     border-radius: 3px;
     cursor: pointer;
-    /* align-self: center; */
   }
   
   button:hover {
     background-color: #0056b3;
   }
   
+
