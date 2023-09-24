@@ -40,6 +40,7 @@ async function transferTicket(
   feePercentage: number
 ) {
   const cust_secret_key = sessionStorage.getItem("cust_secret_key")!;
+  console.log(cust_secret_key);
   const customerAddress = new ethers.Wallet(cust_secret_key, provider);
   const ticketData = await contract.getTicketData(tokenId);
   const ticketPrice = ticketData[3]._hex;
@@ -109,13 +110,13 @@ function Market() {
       let soldOutTickets: TicketData[] = [];
       for (let i = 0; i < collectionCount; i++) {
         const collection = await contract.getCollection(i);
-        console.log(collection.ticketCount);
-        console.log(
+        // console.log(collection.ticketCount);
+        /*console.log(
           "ticket count " +
             collection.ticketCount +
             "ticket sold " +
             collection.ticketSold
-        );
+        );*/
         const tokenId = collection.tokenIds[0];
         const ticketData = await contract.getTicketData(tokenId);
         const ticket: TicketData = {
