@@ -21,7 +21,7 @@ function OrgInventory() {
       try {
         const providerUrl = process.env.REACT_APP_ALCHEMY_SEPOLIA_KEY;
         const provider = new ethers.providers.JsonRpcProvider(providerUrl);
-        const contractAddress = "0x6EC1d183b8E674f5A08ed5fFfC9530629bD83f89";
+        const contractAddress = "0x49c8f1D45B501cF549175D3c5E060b9a7bBED546";
         const contract = new ethers.Contract(
           contractAddress,
           MyToken.abi,

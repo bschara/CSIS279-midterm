@@ -5,13 +5,6 @@ import Navbar from "../../components/Navbar";
 import "../../style/customers/market.css";
 import SOTicket from "../../components/SOTicket";
 
-interface Collection {
-  name: string;
-  tokenIds: number[];
-  ticketSold: number;
-  ticketCount: number;
-}
-
 interface TicketData {
   name: string;
   place: string;
@@ -30,21 +23,20 @@ const providerUrl = process.env.REACT_APP_ALCHEMY_SEPOLIA_KEY;
 const provider = new ethers.providers.JsonRpcProvider(providerUrl);
 const privateKey = process.env.REACT_APP_ALCHEMY_SECRET_KEY!;
 const signer = new ethers.Wallet(privateKey, provider);
-const contractAddress = "0x6EC1d183b8E674f5A08ed5fFfC9530629bD83f89";
+const contractAddress = "0x49c8f1D45B501cF549175D3c5E060b9a7bBED546";
 const contract = new ethers.Contract(contractAddress, MyToken.abi, signer);
 
-//function to transfer ticket
 async function transferTicket(
   tokenId: number,
   to: string,
   feePercentage: number
 ) {
   const cust_secret_key = sessionStorage.getItem("cust_secret_key")!;
-  console.log(cust_secret_key);
   const customerAddress = new ethers.Wallet(cust_secret_key, provider);
   const ticketData = await contract.getTicketData(tokenId);
   const ticketPrice = ticketData[3]._hex;
   const ticketPriceInWei = ethers.BigNumber.from(ticketPrice);
+  console.log(ticketPriceInWei);
   const value = ticketPriceInWei;
   const paymentTransaction = await customerAddress.sendTransaction({
     to: ownerAddress,
@@ -93,63 +85,37 @@ function TicketForSale({
 }
 
 function Market() {
-  const [collections, setCollections] = useState<Collection[]>([]);
-  const [soldOutCollections, setSoldOutCollections] = useState<Collection[]>(
-    []
-  );
   const [tickets, setTickets] = useState<TicketData[]>([]);
   const [soldoutTickets, setSoldOutTickets] = useState<TicketData[]>([]);
 
   useEffect(() => {
     async function getCollections() {
       const collectionCount = await contract.getCollectionCounter();
-
-      let collections: Collection[] = [];
       let tickets: TicketData[] = [];
-      let soldOutCollections: Collection[] = [];
       let soldOutTickets: TicketData[] = [];
+
       for (let i = 0; i < collectionCount; i++) {
         const collection = await contract.getCollection(i);
-        // console.log(collection.ticketCount);
-        /*console.log(
-          "ticket count " +
-            collection.ticketCount +
-            "ticket sold " +
-            collection.ticketSold
-        );*/
-        const tokenId = collection.tokenIds[0];
-        const ticketData = await contract.getTicketData(tokenId);
-        const ticket: TicketData = {
-          name: ticketData[0],
-          place: ticketData[1],
-          date: ticketData[2],
-          ticketPrice: ticketData[3],
-          ticketNumber: ticketData[4],
-          tokenId: tokenId,
-        };
-        if (
-          parseInt(collection.ticketSold) >= parseInt(collection.ticketCount)
-        ) {
-          soldOutCollections.push({
-            name: collection.name,
-            tokenIds: [tokenId],
-            ticketSold: collection.ticketSold,
-            ticketCount: collection.ticketCount,
-          });
-          soldOutTickets.push(ticket);
-        } else {
-          collections.push({
-            name: collection.name,
-            tokenIds: [tokenId],
-            ticketSold: collection.ticketSold,
-            ticketCount: collection.ticketCount,
-          });
-          tickets.push(ticket);
+        for (let j = 0; j < collection.ticketCount; j++) {
+          const tokenId = collection.tokenIds[j];
+          const ticketData = await contract.getTicketData(tokenId);
+          const ticket: TicketData = {
+            name: ticketData[0],
+            place: ticketData[1],
+            date: ticketData[2],
+            ticketPrice: ticketData[3],
+            ticketNumber: ticketData[4],
+            tokenId: tokenId,
+          };
+          if (ticketData.isSold === false) {
+            tickets.push(ticket);
+            console.log(tickets);
+          } else {
+            soldOutTickets.push(ticket);
+          }
         }
       }
-      setCollections(collections);
       setTickets(tickets);
-      setSoldOutCollections(soldOutCollections);
       setSoldOutTickets(soldOutTickets);
     }
     getCollections();

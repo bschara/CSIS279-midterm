@@ -3,7 +3,8 @@ import "../../style/organizers/createTicket.css";
 import OrgNavbar from "../../components/orgNavbar";
 import { BigNumber, ethers } from "ethers";
 import MyToken from "../../assets/MyToken.json";
-import Ticket from "../../components/Ticket";
+// import Ticket from "../../components/Ticket";
+import DisplayTicket from "../../components/displayTicket";
 
 interface EventData {
   name: string;
@@ -40,7 +41,7 @@ function CreateEvent(props: Props) {
     const provider = new ethers.providers.JsonRpcProvider(providerUrl);
     const privateKey = process.env.REACT_APP_ALCHEMY_SECRET_KEY!;
     const signer = new ethers.Wallet(privateKey, provider);
-    const contractAddress = "0x6EC1d183b8E674f5A08ed5fFfC9530629bD83f89";
+    const contractAddress = "0x49c8f1D45B501cF549175D3c5E060b9a7bBED546";
     const contract = new ethers.Contract(contractAddress, MyToken.abi, signer);
     const organizerAddress = sessionStorage.getItem("org_wallet_address");
     console.log(organizerAddress);
@@ -61,11 +62,11 @@ function CreateEvent(props: Props) {
     <div>
       <OrgNavbar />
       <div className="ticket-wrapper">
-        <Ticket
+        <DisplayTicket
           name={name}
           place={location}
           date={date}
-          ticketPrice={ethers.BigNumber.from(ticketPrice)}
+          ticketPrice={ticketPrice}
           ticketNumber={ethers.BigNumber.from(ticketQuantity)}
         />
         <form onSubmit={handleSubmit} className="form-container">
@@ -97,8 +98,11 @@ function CreateEvent(props: Props) {
             Ticket Price:
             <input
               type="number"
-              value={ticketPrice}
-              onChange={(e) => setTicketPrice(parseFloat(e.target.value))}
+              value={isNaN(ticketPrice) ? "" : ticketPrice}
+              onChange={(e) => {
+                const value = parseFloat(e.target.value);
+                setTicketPrice(isNaN(value) ? 0 : value);
+              }}
             />
           </label>
           <label>

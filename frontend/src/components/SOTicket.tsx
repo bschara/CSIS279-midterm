@@ -11,10 +11,15 @@ interface TicketProps {
   tokenId: number;
 }
 
-
-function SOTicket({ name, place, date, ticketPrice, ticketNumber, tokenId }: TicketProps) {
+function SOTicket({
+  name,
+  place,
+  date,
+  ticketPrice,
+  ticketNumber,
+  tokenId,
+}: TicketProps) {
   const [purchased, setPurchased] = useState(false);
-
 
   return (
     <div className="ticket">
@@ -23,11 +28,7 @@ function SOTicket({ name, place, date, ticketPrice, ticketNumber, tokenId }: Tic
       <p>Date: {date}</p>
       <p>Ticket Price: {ethers.utils.formatEther(ticketPrice)} ETH</p>
       <p>Ticket Number: {ticketNumber.toString()}</p>
-      {!purchased && (
-        
-        <label>Sold Out  </label>
-
-      )}
+      {!purchased && <label>Sold Out </label>}
     </div>
   );
 }
