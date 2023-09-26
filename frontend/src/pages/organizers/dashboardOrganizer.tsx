@@ -141,7 +141,7 @@ function DashboardOrganizer() {
           </div>
           <div className="statistics-item">
             <h3>Total Sales Value</h3>
-            <p>{totalSalesValue} ETH</p>
+            <p>{totalSalesValue.toFixed(3)} ETH</p>
           </div>
         </div>
         <h1 className="transaction-title">Recent Transactions</h1>
