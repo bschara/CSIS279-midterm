@@ -1,0 +1,59 @@
+
+.ticket {
+    background: linear-gradient(to bottom, #e84c3d 0%, #e84c3d 26%, #ecedef 26%, #ecedef 100%);
+    width: 20rem;
+    margin: 3em auto;
+    color: #343434;
+    font-family: sans-serif;
+    padding: 1em;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  h3 {
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 1.2em;
+    padding: 0.5rem;
+  }
+  
+  .place {
+    font-weight: bold;
+  }
+  
+  .date {
+    font-style: italic;
+  }
+  
+  .price {
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+  
+  .number {
+    font-weight: bold;
+  }
+  
+  .sout-label{
+    display:flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 0.5rem;
+    border: 2px solid #000; 
+    padding: 5px;
+    border-radius: 6px; 
+    background-color: black;
+    color: white;
+    margin-top: 1rem;
+}
+
+  
+  
+  
+  

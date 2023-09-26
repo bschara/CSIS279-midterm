@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ethers, BigNumberish } from "ethers";
 import Cookies from "js-cookie";
+import "../style/components/soticket.css";
 
 interface TicketProps {
   name: string;
@@ -28,7 +29,7 @@ function SOTicket({
       <p>Date: {date}</p>
       <p>Ticket Price: {ethers.utils.formatEther(ticketPrice)} ETH</p>
       <p>Ticket Number: {ticketNumber.toString()}</p>
-      {!purchased && <label>Sold Out </label>}
+      {!purchased && <label className="sout-label">Sold Out </label>}
     </div>
   );
 }

@@ -142,7 +142,7 @@ function Dashboard() {
           </div>
           <div className="statistics-item">
             <h3>Total Tickets Value</h3>
-            {<p>{totalValue}</p>}
+            {<p>{totalValue} ETH</p>}
           </div>
         </div>
         <h1 className="transaction-title">Recent Transactions</h1>
