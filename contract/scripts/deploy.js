@@ -3,7 +3,7 @@ require('dotenv').config();
 
 async function main() {
 
-  const url = "https://eth-sepolia.g.alchemy.com/v2/BelDtllo-yLRWRfU9s9fWbl1IthSnF2N";
+  const url = process.env.TESTNET_ALCHEMY_KEY;
 
   let artifacts = await hre.artifacts.readArtifact("MyToken");
 
